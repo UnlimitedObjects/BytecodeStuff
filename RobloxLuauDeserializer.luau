@@ -186,8 +186,6 @@ local function resolveImportConstant(static, count, k0, k1, k2)
 	return res
 end
 
-local count = 0
-
 local function luau_deserialize(bytecode, luau_settings)
 	if luau_settings == nil then
 		luau_settings = luau_newsettings()
@@ -269,9 +267,7 @@ local function luau_deserialize(bytecode, luau_settings)
 	local function readInstruction(codeList)
 		local value = readWord()
 		local opcode = bit32_band(value, 0xFF)
-		count += 1
-		print(count, opcode + 1)
-		
+
 		local opinfo = opList[opcode + 1]
 		local opname = opinfo[1]
 		local opmode = opinfo[2]
@@ -518,11 +514,11 @@ local function luau_deserialize(bytecode, luau_settings)
 		protoList[i] = readProto(i - 1)
 	end
 
-	local mainProto = protoList[readVarInt() + 1]
+	local mainProto = readVarInt() + 1
 
 	assert(cursor == buffer_len(stream), "deserializer cursor position mismatch")
 
-	mainProto.debugname = "(main)"
+	protoList[mainProto].debugname = "(main)"
 
 	return {
 		stringList = stringList;
