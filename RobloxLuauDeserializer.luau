@@ -533,3 +533,5 @@ local function luau_deserialize(bytecode, luau_settings)
 		typesVersion = typesVersion;
 	}
 end
+
+return luau_deserialize
