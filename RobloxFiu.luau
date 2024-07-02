@@ -672,7 +672,7 @@ local function luau_load(module, env, luau_settings)
 					stack[inst.A] = stack[inst.B][stack[inst.C]]
 				elseif op == 106 then --[[ SETTABLE ]]
 					stack[inst.B][stack[inst.C]] = stack[inst.A]
-				elseif op == 78 then --[[ GETTABLEKS ]]
+				elseif op == 77 then --[[ GETTABLEKS ]]
 					local index = inst.K
 					stack[inst.A] = stack[inst.B][index]
 
